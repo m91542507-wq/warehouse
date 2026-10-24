@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4f46e5">
+<title>Учёт склада</title>
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js"></script>
+</head>
+<body>
+
+<div id="auth" class="auth hidden">
+  <div class="authwrap">
+    <div class="authtop"><select class="langSel" aria-label="Language"></select></div>
+    <div class="card">
+      <div class="logo">📦</div>
+      <h1 data-i18n="app_title">Учёт склада</h1>
+      <p class="sub" id="modeInfo"></p>
+      <div class="tabs2">
+        <button id="tabLogin" class="active" type="button" data-i18n="login_tab">Вход</button>
+        <button id="tabReg" type="button" data-i18n="reg_tab">Регистрация</button>
+      </div>
+      <form id="authForm">
+        <label><span id="lblLogin">Логин</span> <input id="aLogin" required autocomplete="username"></label>
+        <label><span data-i18n="password">Пароль</span> <input id="aPass" type="password" required minlength="6" autocomplete="current-password"></label>
+        <label id="aNameWrap" class="hidden"><span data-i18n="name">Имя</span> <input id="aName"></label>
+        <button class="primary wide" id="authBtn" type="submit">Войти</button>
+        <p id="aErr" class="err"></p>
+      </form>
+      <p class="hint" id="authHint"></p>
+    </div>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <header>
+    <div class="brand">📦 <span data-i18n="app_title">Учёт склада</span></div>
+    <nav id="nav"></nav>
+    <div class="who">
+      <span class="modeBadge" id="modeBadge"></span>
+      <select class="langSel" aria-label="Language"></select>
+      <span id="whoami"></span>
+      <button class="sec" id="logoutBtn" data-i18n="logout">Выйти</button>
+    </div>
+  </header>
+  <div id="alerts"></div>
+  <main id="view"></main>
+</div>
+
+<dialog id="dlg"><form method="dialog" id="dlgForm"></form></dialog>
+
+<dialog id="scanDlg">
+  <h3 id="scanTitle"></h3>
+  <video id="scanVideo" playsinline muted></video>
+  <p class="muted" id="scanHint"></p>
+  <div class="dlgbtns"><button type="button" class="sec" id="scanCancel"></button></div>
+</dialog>
+
+<div id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
